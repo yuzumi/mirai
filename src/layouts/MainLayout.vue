@@ -17,7 +17,14 @@
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <!-- drawer content -->
+      <q-list separator>
+         <q-item :to="{ name: 'tasks' }">
+          <q-item-section avatar>
+            <q-icon color="primary" name="task" />
+          </q-item-section>
+          <q-item-section>Tasks</q-item-section>
+        </q-item>
+      </q-list>
     </q-drawer>
 
     <q-drawer v-model="rightDrawerOpen" side="right" bordered>
