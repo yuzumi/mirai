@@ -2,6 +2,7 @@ import { store } from 'quasar/wrappers';
 import { createStore } from 'vuex';
 
 import modules from 'src/store/modules';
+import plugins from 'src/store/plugins';
 
 /*
  * If not building with SSR mode, you can
@@ -15,6 +16,7 @@ import modules from 'src/store/modules';
 export default store((/* { ssrContext } */) => {
   const Store = createStore({
     modules,
+    plugins,
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
