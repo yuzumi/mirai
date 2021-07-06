@@ -28,6 +28,12 @@
           />
 
           <q-select
+            v-model="task.category"
+            :options="options.category"
+            label="Category"
+          />
+
+          <q-select
             v-model="task.priority"
             :options="options.priority"
             label="Priority"
@@ -165,6 +171,7 @@ export default {
         description: '',
         date: format(new Date(), 'yyyy/MM/dd'),
         priority: 'low',
+        category: 'unknown',
       },
       rules: {
         name: [(value) => (value && value.length > 0) || 'Enter a name'],
@@ -172,6 +179,7 @@ export default {
       },
       options: {
         priority: ['low', 'medium', 'high'],
+        category: ['sport', 'work', 'everyday life', 'other', 'unknown'],
       },
     };
   },

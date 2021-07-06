@@ -19,7 +19,7 @@ export const groupedTasks = (_state, { sortedTasks }) => {
 
   const tasks = sortedTasks.map((task) => ({
     ...task,
-    date: toTime(task.date) === toTime(today) ? ' Today' : task.date,
+    date: toTime(task.date) === toTime(today) ? 'Today' : task.date,
   }));
 
   return groupBy(tasks, 'date');
