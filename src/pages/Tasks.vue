@@ -101,7 +101,7 @@
     </q-dialog>
 
     <div style="max-width: 75%; width: 100%;">
-      <q-list separator>
+      <q-list>
         <q-expansion-item
           v-for="(group, name) in groupedTasks"
           :key="name"
@@ -110,6 +110,7 @@
           icon="mail"
           :label="name"
           :caption="group.length.toString()"
+          :default-opened="itemOpenByDefault(name)"
         >
           <template v-slot:header>
             <q-item-section avatar>
@@ -274,6 +275,9 @@ export default {
     showStats(groupName) {
       this.stats = this.getStats(groupName);
       this.chart = true;
+    },
+    itemOpenByDefault(name) {
+      return name === 'Today';
     },
   },
   components: {
