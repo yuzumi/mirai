@@ -14,29 +14,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <apexchart
-            type="pie"
-            width="420"
-            :options="{
-              chart: {
-                width: 420,
-                type: 'pie',
-              },
-              labels: stats.labels,
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
-            }"
-            :series="stats.series"
-          />
+          <stats-chart :data="stats" />
         </q-card-section>
 
         <q-card-actions align="right">
@@ -192,6 +170,8 @@ import { mapGetters, mapMutations } from 'vuex';
 
 import { format } from 'date-fns';
 
+import StatsChart from 'components/tasks/StatsChart.vue';
+
 const store = {
   computed: {
     ...mapGetters('tasks', [
@@ -281,7 +261,7 @@ export default {
     },
   },
   components: {
-    // StatsChart: () => import('components/tasks/StatsChart.vue'),
+    StatsChart,
   },
 };
 </script>
