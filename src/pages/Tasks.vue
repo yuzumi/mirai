@@ -7,6 +7,44 @@
       @click="openDialog"
     />
 
+     <q-dialog v-model="chart">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Stats</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <apexchart
+            type="pie"
+            width="420"
+            :options="{
+              chart: {
+                width: 420,
+                type: 'pie',
+              },
+              labels: stats.labels,
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            }"
+            :series="stats.series"
+          />
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <q-dialog v-model="dialog" persistent>
       <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section>
@@ -87,6 +125,14 @@
                 <q-btn
                   flat
                   round
+                  color="primary"
+                  icon="donut_large"
+                  title="Show stats"
+                  @click.stop="showStats(name)"
+                />
+                <q-btn
+                  flat
+                  round
                   color="red"
                   icon="delete"
                   title="Delete group"
@@ -149,6 +195,7 @@ const store = {
   computed: {
     ...mapGetters('tasks', [
       'groupedTasks',
+      'getStats',
     ]),
   },
   methods: {
@@ -166,6 +213,8 @@ export default {
   data() {
     return {
       dialog: false,
+      chart: false,
+      stats: {},
       task: {
         name: '',
         description: '',
@@ -222,6 +271,13 @@ export default {
         default: return 'primary';
       }
     },
+    showStats(groupName) {
+      this.stats = this.getStats(groupName);
+      this.chart = true;
+    },
+  },
+  components: {
+    // StatsChart: () => import('components/tasks/StatsChart.vue'),
   },
 };
 </script>

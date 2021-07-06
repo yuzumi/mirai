@@ -24,3 +24,18 @@ export const groupedTasks = (_state, { sortedTasks }) => {
 
   return groupBy(tasks, 'date');
 };
+
+export const getStats = (_state, { groupedTasks }) => (groupName) => {
+  const tasksGroupedByCategory = groupBy(groupedTasks?.[groupName] ?? {}, 'category');
+
+  return Object
+    .keys(tasksGroupedByCategory)
+    .map((category) => ({
+      label: category,
+      set: tasksGroupedByCategory[category].length,
+    }))
+    .reduce(({ labels, series }, { label, set }) => ({
+      labels: [...labels, label],
+      series: [...series, set],
+    }), { labels: [], series: [] });
+};
