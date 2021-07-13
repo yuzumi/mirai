@@ -39,3 +39,7 @@ export const getStats = (_state, { groupedTasks }) => (groupName) => {
       series: [...series, set],
     }), { labels: [], series: [] });
 };
+
+export const numberOfTasks = (state) => (
+  state.tasks.length
+);

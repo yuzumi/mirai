@@ -18,11 +18,19 @@
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <q-list separator>
-         <q-item :to="{ name: 'tasks' }">
+        <q-item :to="{ name: 'tasks' }">
           <q-item-section avatar>
             <q-icon color="primary" name="task" />
           </q-item-section>
-          <q-item-section>Tasks</q-item-section>
+
+          <q-item-section>
+            <q-item-label>Tasks</q-item-label>
+            <q-item-label caption>Manage your daily tasks here</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-badge :label="numberOfTasks" />
+          </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -50,16 +58,21 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   setup() {
+    const store = useStore();
+
     const leftDrawerOpen = ref(false);
     const rightDrawerOpen = ref(false);
 
     return {
       leftDrawerOpen,
       rightDrawerOpen,
+
+      numberOfTasks: computed(() => store.getters['tasks/numberOfTasks']),
 
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
