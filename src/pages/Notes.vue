@@ -41,25 +41,10 @@
           v-for="note of notes"
           :key="note.id"
         >
-          <q-card
-            class="note-card full-height"
-            bordered
-          >
-            <q-card-section>
-              <h6 class="q-my-none">{{ note.title }}</h6>
-            </q-card-section>
-
-            <q-card-section>
-              {{ note.description }}
-            </q-card-section>
-
-            <q-separator />
-
-            <q-card-actions>
-              <q-btn flat round color="primary" icon="edit" />
-              <q-btn flat round color="red" icon="delete" @click.stop="handleNoteDelete(note)" />
-            </q-card-actions>
-          </q-card>
+          <note-card
+            :note="note"
+            @delete="deleteNote"
+          />
         </div>
       </div>
     </div>
@@ -67,15 +52,17 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar';
 import { ref, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 
+import NoteCard from 'components/notes/NoteCard.vue';
+
 export default {
   name: 'Notes',
+  components: {
+    NoteCard,
+  },
   setup() {
-    const $q = useQuasar();
-
     const store = useStore();
 
     const dialog = ref(false);
@@ -103,17 +90,6 @@ export default {
       resetNote();
     };
 
-    const handleNoteDelete = ({ id }) => {
-      $q.dialog({
-        title: 'Confirm',
-        message: 'Are you sure you want to delete the note?',
-        cancel: true,
-        persistent: true,
-      }).onOk(() => {
-        store.commit('notes/deleteNote', id);
-      });
-    };
-
     return {
       note,
       dialog,
@@ -124,7 +100,8 @@ export default {
       closeDialog,
 
       handleNoteAdd,
-      handleNoteDelete,
+
+      deleteNote: ({ id }) => store.commit('notes/deleteNote', id),
     };
   },
 };
