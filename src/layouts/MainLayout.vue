@@ -32,6 +32,21 @@
             <q-badge :label="numberOfTasks" />
           </q-item-section>
         </q-item>
+
+        <q-item :to="{ name: 'notes' }">
+          <q-item-section avatar>
+            <q-icon color="primary" name="note" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Notes</q-item-label>
+            <q-item-label caption>Create interesting notes here</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-badge :label="numberOfNotes" />
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -73,6 +88,7 @@ export default {
       rightDrawerOpen,
 
       numberOfTasks: computed(() => store.getters['tasks/numberOfTasks']),
+      numberOfNotes: computed(() => store.getters['notes/numberOfNotes']),
 
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
